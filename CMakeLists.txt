@@ -19,7 +19,7 @@ endif(WIN32)
 
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-# find the required packages
+# find the required packages 如果找到对应库就把包含路径和库文件路径分别赋值给${XXX_INCLUDE_DIRS}、${XXX_LIBRARIES}
 find_package(GLM REQUIRED)
 message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")
 find_package(GLFW3 REQUIRED)
@@ -179,8 +179,8 @@ set(GUEST_ARTICLES
 	8.guest/2021/1.scene/1.scene_graph
 	8.guest/2021/1.scene/2.frustum_culling
 	8.guest/2021/2.csm
-	#8.guest/2021/3.tessellation/terrain_gpu_dist
-	#8.guest/2021/3.tessellation/terrain_cpu_src
+	8.guest/2021/3.tessellation/terrain_gpu_dist
+	8.guest/2021/3.tessellation/terrain_cpu_src
 	8.guest/2021/4.dsa
 	8.guest/2022/5.computeshader_helloworld
 	8.guest/2022/6.physically_based_bloom
@@ -207,8 +207,7 @@ function(create_project_from_sources chapter demo)
             "src/${chapter}/${demo}/*.vs"
             "src/${chapter}/${demo}/*.fs"
             "src/${chapter}/${demo}/*.gs"
-            "src/${chapter}/${demo}/*.cs"
-    )
+            "src/${chapter}/${demo}/*.cs")
 	if (demo STREQUAL "")
 		SET(replaced "")
 		string(REPLACE "/" "_" replaced ${chapter})
@@ -239,10 +238,9 @@ function(create_project_from_sources chapter demo)
              # "src/${chapter}/${demo}/*.frag"
              "src/${chapter}/${demo}/*.fs"
              "src/${chapter}/${demo}/*.gs"
-	     "src/${chapter}/${demo}/*.cs"
-    )
-	# copy dlls
-	file(GLOB DLLS "dlls/*.dll")
+	     "src/${chapter}/${demo}/*.cs")
+    # copy dlls
+    file(GLOB DLLS "dlls/*.dll")
     foreach(SHADER ${SHADERS})
         if(WIN32)
             # configure_file(${SHADER} "test")
